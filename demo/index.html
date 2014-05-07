@@ -1,0 +1,20 @@
+<html>
+<head>
+	<title>API Share Demo</title>
+	<style>
+		a {}
+		.facebook {}
+		.twitter {}
+	</style>
+</head>
+<body>
+	<a class="facebook" href="#" data-share-api="facebook" data-share-info="my title, my description, http://google.com, image.jpg, my caption">Share on Facebook</a>
+	<a class="twitter" href="#" data-share-api="twitter" data-share-info="my text, http://google.com, myhandle, hashtag">Share on Twitter</a>
+
+	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	<script src="../jquery.apishare.js"></script>
+	<script>
+		$('[data-share-api]').apiShare();
+	</script>
+</body>
+</html>
