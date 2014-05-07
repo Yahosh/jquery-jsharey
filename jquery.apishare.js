@@ -31,8 +31,15 @@
 
 		// on click trigger the appropriate share function
 		$(this.element).on('click', function (e) {
-			e.preventDefault();
-			self[self.api + 'Share'](self.shareInfo, self.options);
+			var url = self[self.api + 'Share'](self.shareInfo, self.options);
+
+			if (url) {
+				$(this).attr('href', url);
+				console.log(e);
+				return true;
+			}
+
+			return false;
 		});
 	};
 
@@ -109,6 +116,8 @@
 				description: data.description
 			});
 		}
+
+		return false;
 	};
 
 	Plugin.prototype.twitterShare = function(data, options) {
@@ -127,6 +136,12 @@
 			}(document, "script", "twitter-wjs");
 		}
 
+		var url = data.url,
+			text = data.text,
+			hashtags = data.hashtags,
+			tweeturl = 'http://twitter.com/share?url=' + encodeURI(url) + '&text=' + text + '&hashtags=' + hashtags;
+
+		return tweeturl;
 	};
 
 	// Define plugin
