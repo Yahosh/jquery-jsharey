@@ -31,11 +31,10 @@
 
 		// on click trigger the appropriate share function
 		$(this.element).on('click', function (e) {
-			var url = self[self.api + 'Share'](self.shareInfo, self.options);
+			var url = self[self.api + 'Share'](self);
 
 			if (url) {
 				$(this).attr('href', url);
-				console.log(e);
 				return true;
 			}
 
@@ -80,7 +79,10 @@
 		return info;
 	};
 
-	Plugin.prototype.facebookShare = function(data, options) {
+	Plugin.prototype.facebookShare = function(data) {
+		var options = data.options,
+			info = data.shareInfo;
+
 		// check for fb sdk, if not present add to page
 		if (!window.fbAsyncInit) {
 			$('body').append('<div id="fb-root"></div>');
@@ -109,19 +111,19 @@
 			// Open Facebook share dialog
 			FB.ui({
 				method: 'feed',
-				name: data.title,
-				link: data.url,
-				picture: data.image,
-				caption: data.caption,
-				description: data.description
+				name: info.title,
+				link: info.url,
+				picture: info.image,
+				caption: info.caption,
+				description: info.description
 			});
 		}
 
 		return false;
 	};
 
-	Plugin.prototype.twitterShare = function(data, options) {
-		console.log('shared on twitter');
+	Plugin.prototype.twitterShare = function(data) {
+		var data = data.shareInfo;
 
 		// check if twitter sdk has been loaded, if not load it
 		if (!window.twttr) {
