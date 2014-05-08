@@ -20,8 +20,10 @@
 		this.options = $.extend({}, defaults, options);
 		this._defaults = defaults;
 		this._name = pluginName;
-		this.api = $(this.element).data(this.options.channelAttrName);
+		this.shareChannel = $(this.element).data(this.options.channelAttrName);
+		this.rawShareInfo = $(this.element).data(this.options.infoAttrName);
 		this.shareInfo = this.getShareInfo();
+
 		this.init();
 	}
 
@@ -30,7 +32,7 @@
 
 		// on click trigger the appropriate share function
 		$(this.element).on('click', function (e) {
-			var url = self[self.api + 'Share'](self);
+			var url = self[self.shareChannel + 'Share'](self);
 
 			if (url) {
 				$(this).attr('href', url);
@@ -44,14 +46,14 @@
 	Plugin.prototype.getShareInfo = function() {
 		// return an object with the share data
 		var info,
-			data = $(this.element).data(this.options.infoAttrName).split(',');
+			data = this.rawShareInfo.split(',');
 
 		// Trim whitespace from data
 		$.each(data, function (i) {
 			data[i] = this.trim(data[i]);
 		});
 
-		switch (this.api) {
+		switch (this.shareChannel) {
 			case 'facebook':
 				info = {
 					title: data[0],
