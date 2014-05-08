@@ -13,7 +13,7 @@ First, you must include jQuery library in your `<head>` or just before the close
 <!-- Load jQuery -->
 <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
 <!-- Load jSharey plugin -->
-<script src="jquery.apishare.js"></script>
+<script src="jquery.jsharey.js"></script>
 ```
 
 ### Add share info to markup
