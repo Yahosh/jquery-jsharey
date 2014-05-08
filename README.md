@@ -34,7 +34,7 @@ Finally, you need to initialize the script on the document ready event. Note: if
 
 ```javascript
 $(document).ready(funtion() {
-	$('[data-share-channel]').trackEvents({
+	$('[data-share-channel]').jsharey({
 		infoAttrName: 'share-info',
 		channelAttrName: 'share-channel',
 		fbAppID: '' // required for Facebook SDK
