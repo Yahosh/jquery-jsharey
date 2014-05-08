@@ -1,20 +1,16 @@
 <html>
 <head>
-	<title>API Share Demo</title>
-	<style>
-		a {}
-		.facebook {}
-		.twitter {}
-	</style>
+	<title>jSharey Demo</title>
 </head>
 <body>
-	<a class="facebook" href="#" data-share-api="facebook" data-share-info="my title, my description, http://google.com, image.jpg, my caption">Share on Facebook</a>
-	<a class="twitter" href="#" data-share-api="twitter" data-share-info="my text, http://google.com, myhandle, hashtag">Share on Twitter</a>
+	<a class="share facebook" href="#" data-share-channel="facebook" data-share-info="my title, my description, http://google.com, image.jpg, my caption">Share on Facebook</a>
+	<a class="share twitter" href="#" target="_blank" data-share-channel="twitter" data-share-info="my text, http://google.com, myhandle, hashtag">Share on Twitter</a>
+	<a class="share pinterest" href="#" target="_blank" data-share-channel="pinterest" data-share-info="http://prettylightsmusic.com/photo/analog-future-tour-2013-2/, http://cdn.prettylightsmusic.com/wp-content/uploads/2013/11/IMG_2688.jpg, Pretty Lights concert">Pin on Pinterest</a>
 
 	<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
-	<script src="../jquery.apishare.js"></script>
+	<script src="../jquery.jsharey.js"></script>
 	<script>
-		$('[data-share-api]').apiShare();
+		$('.share').jsharey();
 	</script>
 </body>
 </html>

@@ -1,17 +1,16 @@
 /*
- *  Project: jQuery API Share
+ *  Project: jSharey - A jQuery social sharing plugin
  *  Description: Share content using social media apis and data attributes on in your markup
  *  Author: Josh Lawrence
  *  License: MIT
  */
 
-;
-(function($, window, document, undefined) {
+;(function($, window, document, undefined) {
 	// Defaults
-	var pluginName = 'apiShare',
-		document = window.document,
+	var pluginName = 'jsharey',
 		defaults = {
-			dataShareInfo: 'share-info',
+			infoAttrName: 'share-info',
+			channelAttrName: 'share-channel',
 			fbAppID: ''
 		};
 
@@ -21,7 +20,7 @@
 		this.options = $.extend({}, defaults, options);
 		this._defaults = defaults;
 		this._name = pluginName;
-		this.api = $(this.element).data('share-api');
+		this.api = $(this.element).data(this.options.channelAttrName);
 		this.shareInfo = this.getShareInfo();
 		this.init();
 	}
@@ -45,7 +44,7 @@
 	Plugin.prototype.getShareInfo = function() {
 		// return an object with the share data
 		var info,
-			data = $(this.element).data(this.options.dataShareInfo).split(',');
+			data = $(this.element).data(this.options.infoAttrName).split(',');
 
 		// Trim whitespace from data
 		$.each(data, function (i) {
@@ -69,6 +68,14 @@
 					url: data[1],
 					via: data[2],
 					hashtags: data[3]
+				}
+				break;
+
+			case 'pinterest':
+				info = {
+					url: data[0],
+					media: data[1],
+					description: data[2]
 				}
 				break;
 
@@ -123,27 +130,23 @@
 	};
 
 	Plugin.prototype.twitterShare = function(data) {
-		var data = data.shareInfo;
-
-		// check if twitter sdk has been loaded, if not load it
-		if (!window.twttr) {
-			!function(d, s, id) {
-				var js, fjs = d.getElementsByTagName(s)[0];
-				if (!d.getElementById(id)) {
-					js = d.createElement(s);
-					js.id = id;
-					js.src = "https://platform.twitter.com/widgets.js";
-					fjs.parentNode.insertBefore(js, fjs);
-				}
-			}(document, "script", "twitter-wjs");
-		}
-
-		var url = data.url,
-			text = data.text,
-			hashtags = data.hashtags,
+		var info = data.shareInfo,
+			url = info.url,
+			text = info.text,
+			hashtags = info.hashtags,
 			tweeturl = 'http://twitter.com/share?url=' + encodeURI(url) + '&text=' + text + '&hashtags=' + hashtags;
 
 		return tweeturl;
+	};
+
+	Plugin.prototype.pinterestShare = function (data) {
+		var info = data.shareInfo,
+			url = info.url || document.location.href,
+			media = info.media,
+			description = info.description,
+			pinurl = 'http://www.pinterest.com/pin/create/button/?url=' + encodeURI(url) + '&media=' + encodeURI(media) + '&description=' + description;
+
+		return pinurl;
 	};
 
 	// Define plugin
