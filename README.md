@@ -42,4 +42,4 @@ $(document).ready(funtion() {
 });
 ```
 
-All done. Now when a user clicks on your targeted link the content will be shared based on the data you provided in the data attributes.
+All done. Now when a user clicks on your targeted element the content will be shared based on the data you provided in the data attributes.
